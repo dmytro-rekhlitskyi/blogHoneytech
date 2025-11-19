@@ -1,0 +1,121 @@
+.header {
+  background-color: #65DB90;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+  }
+
+  &__logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+  }
+
+  &__nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 20px;
+  }
+
+  &__nav-item {
+    margin: 0;
+  }
+
+  &__nav-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 8px 0;
+
+    &:hover {
+      color: #007bff;
+    }
+  }
+
+  &__menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    flex-direction: column;
+    gap: 4px;
+
+    span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    &__menu-toggle {
+      display: flex;
+    }
+
+    &__nav {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 20px;
+      gap: 0;
+
+      &--open {
+        transform: translateX(0);
+      }
+    }
+
+    &__nav-list {
+      flex-direction: column;
+      gap: 0;
+      width: 100%;
+    }
+
+    &__nav-item {
+      width: 100%;
+      border-bottom: 1px solid #eee;
+    }
+
+    &__nav-link {
+      display: block;
+      padding: 15px 0;
+      width: 100%;
+    }
+  }
+}
+

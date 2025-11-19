@@ -1,0 +1,20 @@
+@use "choices.js/src/styles/choices" as *;
+
+.choices {
+    position: relative;
+    font-size: 16px;
+    overflow: unset;
+}
+
+.choices__inner {
+    display: block;
+    vertical-align: top;
+    width: auto;
+    background-color: #f9f9f9;
+    padding: 7.5px 7.5px 3.75px;
+    border: 2px solid #e9ecef;
+    border-radius: 20px;
+    font-size: 14px;
+    min-height: 0;
+}
+

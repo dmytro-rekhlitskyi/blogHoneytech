@@ -1,0 +1,36 @@
+@use 'grid' as *;
+@use 'header' as *;
+@use 'footer' as *;
+@use 'list' as *;
+@use 'form' as *;
+@use "choices-custom" as *;
+
+@font-face {
+    font-family: 'e-Ukraine';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/e-ukraine/e-Ukraine-Regular.woff2') format('woff2'),
+    url('../fonts/e-ukraine/e-Ukraine-Regular.woff2') format('woff');
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'e-Ukraine', sans-serif;
+}
+
+main {
+    flex: 1;
+    margin: 8px;
+}
+
+button {
+    width: 100%;
+}

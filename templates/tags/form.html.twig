@@ -1,0 +1,44 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}{% if tag.id %}Edit Tag{% else %}Create Tag{% endif %}{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="list__flash list__flash--{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="form">
+        <div class="form__header">
+            <h1 class="form__title">{% if tag.id %}Edit Tag{% else %}Create Tag{% endif %}</h1>
+            <a href="{{ path('front_tags') }}" class="form__back-btn">
+                Back to Tags
+            </a>
+        </div>
+
+        <div class="form__content">
+            {{ form_start(form, {'attr': {'class': 'form__form'}}) }}
+                <div class="form__field">
+                    {{ form_label(form.name, null, {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(form.name, {'attr': {'class': 'form__input'}}) }}
+                    {{ form_errors(form.name) }}
+                </div>
+
+                <div class="form__actions">
+                    <button type="submit" class="form__submit-btn">
+                        {% if tag.id %}Update{% else %}Create{% endif %}
+                    </button>
+                    <a href="{{ path('front_tags') }}" class="form__cancel-btn">
+                        Cancel
+                    </a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

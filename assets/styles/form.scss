@@ -1,0 +1,163 @@
+@use 'common' as *;
+
+.form {
+    &__header {
+        @extend %header-base;
+
+        @media (max-width: 576px) {
+            margin-bottom: 20px;
+        }
+    }
+
+    &__title {
+        @extend %title-base;
+    }
+
+    &__back-btn {
+        @extend %btn-white;
+        color: #667eea;
+
+        &:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+            color: #667eea;
+        }
+    }
+
+    &__content {
+        @extend %card-white;
+        padding: 32px;
+
+        @media (max-width: 576px) {
+            padding: 24px 16px;
+        }
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        @media (max-width: 576px) {
+            gap: 20px;
+        }
+    }
+
+    &__field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    &__label {
+        font-size: 14px;
+        font-weight: 500;
+        color: #495057;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        @media (max-width: 576px) {
+            font-size: 12px;
+        }
+    }
+
+    &__input {
+        padding: 12px 16px;
+        font-size: 16px;
+        font-family: inherit;
+        color: #212529;
+        background: #ffffff;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        transition: all 0.2s ease;
+        width: 100%;
+        box-sizing: border-box;
+
+        @media (max-width: 576px) {
+            padding: 10px 14px;
+            font-size: 14px;
+        }
+
+        &:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        &:hover:not(:focus) {
+            border-color: #adb5bd;
+        }
+
+        &::placeholder {
+            color: #adb5bd;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+
+        @media (max-width: 576px) {
+            gap: 8px;
+            margin-top: 4px;
+        }
+    }
+
+    &__submit-btn {
+        @extend %btn-gradient;
+        flex: 1;
+        min-width: 120px;
+        width: auto;
+
+        @media (max-width: 576px) {
+            min-width: 100px;
+        }
+    }
+
+    &__cancel-btn {
+        @extend %btn-white;
+        color: #6c757d;
+
+        &:hover {
+            background: #f8f9fa;
+            border-color: #adb5bd;
+            color: #495057;
+        }
+    }
+}
+
+.form__field {
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .form-error-message,
+    ul li {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 4px;
+        list-style: none;
+        padding-left: 0;
+
+        @media (max-width: 576px) {
+            font-size: 12px;
+        }
+    }
+
+    input.form__input.error,
+    input.form__input:invalid:not(:focus):not(:placeholder-shown),
+    textarea.form__input.error,
+    textarea.form__input:invalid:not(:focus):not(:placeholder-shown) {
+        border-color: #dc3545;
+
+        &:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+        }
+    }
+}
+

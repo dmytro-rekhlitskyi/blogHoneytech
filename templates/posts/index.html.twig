@@ -1,0 +1,138 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Posts{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="list__flash list__flash--{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="list">
+        <div class="list__header">
+            <h1 class="list__title">Posts</h1>
+            <a href="{{ path('front_posts_create') }}" class="list__add-btn">
+                <span class="list__add-icon">+</span>
+                <span class="list__add-text">Add</span>
+            </a>
+        </div>
+
+        <div class="list__filter">
+            <label for="tag-filter" class="list__filter-label">Filter by tag:</label>
+            <select id="tag-filter" name="tag" multiple>
+            </select>
+        </div>
+
+        {% if posts|length > 0 %}
+            <div class="list__table">
+                <div class="list__table-header row">
+                    <div class="col-3">
+                        <span class="list__table-header-text">Title</span>
+                    </div>
+                    <div class="col-3">
+                        <span class="list__table-header-text">Body</span>
+                    </div>
+                    <div class="col-4">
+                        <span class="list__table-header-text">Tags</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="list__table-header-text">Actions</span>
+                    </div>
+                </div>
+
+                {% for post in posts %}
+                    <div class="list__table-row row">
+                        <div class="list__table-cell col-3">
+                            <span class="list__table-name">{{ post.title }}</span>
+                        </div>
+                        <div class="list__table-cell col-3">
+                            <span class="list__table-name">
+                                {% if post.body|length > 0 %}
+                                    {{ post.body }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="list__table-cell col-4">
+                            <span class="list__table-name">
+                                {% set tags = post.tags %}
+                                {% if tags|length > 0 %}
+                                    {{ tags|map(t => t.name)|join(', ') }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="list__table-cell col-2">
+                            <div class="list__dropdown">
+                                <button class="list__dropdown-toggle" type="button" aria-label="Actions">
+                                    <svg class="list__dropdown-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="10" cy="4" r="1.5" fill="currentColor"/>
+                                        <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+                                        <circle cx="10" cy="16" r="1.5" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <div class="list__dropdown-menu">
+                                    <a href="{{ path('front_posts_show', {slug: post.slug}) }}" class="list__dropdown-item">
+                                        View
+                                    </a>
+                                    <a href="{{ path('front_posts_edit', {id: post.id}) }}" class="list__dropdown-item">
+                                        Edit
+                                    </a>
+                                    <form method="post" action="{{ path('front_posts_delete', {id: post.id}) }}" class="list__dropdown-form">
+                                        {{ form_widget(delete_forms[post.id]) }}
+                                        <button type="submit" class="list__dropdown-item list__dropdown-item--danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if meta.totalPages > 1 %}
+                <div class="list__pagination">
+                    {% set paginationParams = {page: meta.page - 1, limit: meta.limit} %}
+                    {% if tagSlug %}
+                        {% set paginationParams = paginationParams|merge({tagSlug: tagSlug}) %}
+                    {% endif %}
+                    {% if meta.page > 1 %}
+                        <a href="{{ path('front_posts', paginationParams) }}" class="list__pagination-link list__pagination-link--prev">
+                            Previous
+                        </a>
+                    {% else %}
+                        <span class="list__pagination-link list__pagination-link--disabled">Previous</span>
+                    {% endif %}
+
+                    <div class="list__pagination-info">
+                        Page {{ meta.page }} of {{ meta.totalPages }}
+                    </div>
+
+                    {% set paginationParams = {page: meta.page + 1, limit: meta.limit} %}
+                    {% if tagSlug %}
+                        {% set paginationParams = paginationParams|merge({tagSlug: tagSlug}) %}
+                    {% endif %}
+                    {% if meta.page < meta.totalPages %}
+                        <a href="{{ path('front_posts', paginationParams) }}" class="list__pagination-link list__pagination-link--next">
+                            Next
+                        </a>
+                    {% else %}
+                        <span class="list__pagination-link list__pagination-link--disabled">Next</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="list__empty">
+                <p class="list__empty-text">No posts found</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

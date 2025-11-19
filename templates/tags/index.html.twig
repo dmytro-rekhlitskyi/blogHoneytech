@@ -1,0 +1,96 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Tags{% endblock %}
+
+{% block body %}
+<div class="container">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="list__flash list__flash--{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    <div class="list">
+        <div class="list__header">
+            <h1 class="list__title">Tags</h1>
+            <a href="{{ path('front_tags_create') }}" class="list__add-btn">
+                <span class="list__add-icon">+</span>
+                <span class="list__add-text">Add</span>
+            </a>
+        </div>
+
+        {% if tags|length > 0 %}
+            <div class="list__table">
+                <div class="list__table-header row">
+                    <div class="col-10">
+                        <span class="list__table-header-text">Name</span>
+                    </div>
+                    <div class="col-2">
+                        <span class="list__table-header-text">Actions</span>
+                    </div>
+                </div>
+
+                {% for tag in tags %}
+                    <div class="list__table-row row">
+                        <div class="list__table-cell col-10">
+                            <span class="list__table-name">{{ tag.name }}</span>
+                        </div>
+                        <div class="list__table-cell col-2">
+                            <div class="list__dropdown">
+                                <button class="list__dropdown-toggle" type="button" aria-label="Actions">
+                                    <svg class="list__dropdown-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="10" cy="4" r="1.5" fill="currentColor"/>
+                                        <circle cx="10" cy="10" r="1.5" fill="currentColor"/>
+                                        <circle cx="10" cy="16" r="1.5" fill="currentColor"/>
+                                    </svg>
+                                </button>
+                                <div class="list__dropdown-menu">
+                                    <a href="{{ path('front_tags_edit', {id: tag.id}) }}" class="list__dropdown-item">
+                                        Edit
+                                    </a>
+                                    <form method="post" action="{{ path('front_tags_delete', {id: tag.id}) }}" class="list__dropdown-form">
+                                        {{ form_widget(delete_forms[tag.id]) }}
+                                        <button type="submit" class="list__dropdown-item list__dropdown-item--danger">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {% if meta.totalPages > 1 %}
+                <div class="list__pagination">
+                    {% if meta.page > 1 %}
+                        <a href="{{ path('front_tags', {page: meta.page - 1, limit: meta.limit, query: query}) }}" class="list__pagination-link list__pagination-link--prev">
+                            Previous
+                        </a>
+                    {% else %}
+                        <span class="list__pagination-link list__pagination-link--disabled">Previous</span>
+                    {% endif %}
+
+                    <div class="list__pagination-info">
+                        Page {{ meta.page }} of {{ meta.totalPages }}
+                    </div>
+
+                    {% if meta.page < meta.totalPages %}
+                        <a href="{{ path('front_tags', {page: meta.page + 1, limit: meta.limit, query: query}) }}" class="list__pagination-link list__pagination-link--next">
+                            Next
+                        </a>
+                    {% else %}
+                        <span class="list__pagination-link list__pagination-link--disabled">Next</span>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="list__empty">
+                <p class="list__empty-text">No tags found</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

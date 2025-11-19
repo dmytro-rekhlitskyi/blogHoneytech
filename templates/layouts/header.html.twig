@@ -1,0 +1,45 @@
+<header class="header">
+    <div class="header__container">
+        <a href="{{ path('app_home') }}" class="header__logo">Blog</a>
+
+        <nav class="header__nav" id="headerNav">
+            <ul class="header__nav-list">
+                <li class="header__nav-item">
+                    <a href="{{ path('front_posts') }}" class="header__nav-link">Posts</a>
+                </li>
+                <li class="header__nav-item">
+                    <a href="{{ path('front_tags') }}" class="header__nav-link">Tags</a>
+                </li>
+            </ul>
+        </nav>
+
+        <button class="header__menu-toggle" id="menuToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const headerNav = document.getElementById('headerNav');
+
+        if (menuToggle && headerNav) {
+            menuToggle.addEventListener('click', function() {
+                headerNav.classList.toggle('header__nav--open');
+                menuToggle.classList.toggle('header__menu-toggle--open');
+            });
+
+            const navLinks = headerNav.querySelectorAll('.header__nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    headerNav.classList.remove('header__nav--open');
+                    menuToggle.classList.remove('header__menu-toggle--open');
+                });
+            });
+        }
+    });
+</script>
+

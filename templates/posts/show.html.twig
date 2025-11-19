@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="form">
+        <div class="form__header">
+            <h1 class="form__title">{{ post.title }}</h1>
+            <a href="{{ path('front_posts') }}" class="form__back-btn">
+                Back to Posts
+            </a>
+        </div>
+
+        <div class="form__content">
+            {{ form_start(form, {'attr': {'class': 'form__form'}}) }}
+                <div class="form__field">
+                    {{ form_label(form.title, null, {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'form__input', 'disabled': true}}) }}
+                    {{ form_errors(form.title) }}
+                </div>
+
+                <div class="form__field">
+                    {{ form_label(form.body, null, {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(form.body, {'attr': {'class': 'form__input', 'disabled': true}}) }}
+                    {{ form_errors(form.body) }}
+                </div>
+
+                <div class="form__field">
+                    {{ form_label(form.tags, null, {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(form.tags, {'attr': {'class': 'form__input', 'disabled': true}}) }}
+                    {{ form_errors(form.tags) }}
+                </div>
+
+                <div class="form__actions">
+                    <a href="{{ path('front_posts') }}" class="form__cancel-btn">
+                        Back
+                    </a>
+                </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
